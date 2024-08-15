@@ -29,14 +29,17 @@ app.use("/kategori", require("./routes/kategoriRoutes"));
 app.use("/barang", require("./routes/barangRoutes"));
 app.use("/keranjang", require("./routes/keranjangRoutes"));
 app.use("/transaksi", require("./routes/transaksiRoutes"));
+
 //gambar
 app.use("/gambar-barang", express.static("public/images"));
 app.use("/gambar-sertifikat", express.static("public/sertifikat"));
+
 //pelatihan
 app.use("/kategoriKelas", require("./routes/kategoriKelasRoutes"));
 app.use("/materi", require("./routes/materiRoutes"));
 app.use("/tugas", require("./routes/tugasRoutes"));
 app.use("/jawaban", require("./routes/jawabanRoutes"));
+
 //sertifikasi
 app.use("/sertifikasi", require("./routes/sertifikasiRoutes"));
 mongosee

@@ -25,44 +25,37 @@ exports.updateKategoriById = (id, data) =>
     materiModel
       .findOne({ namaKategori: data.namaKategori })
       .then((kategori) => {
-        if (kategori) {
-          reject({
-            status: false,
-            msg: "Kategori Sudah Terdaftar",
-          });
-        } else {
-          materiModel
-            .findOne({ _id: objectId(id) })
-            .then((kategori) => {
-              if (kategori) {
-                materiModel
-                  .updateOne({ _id: objectId(id) }, data)
-                  .then(() => {
-                    resolve({
-                      status: true,
-                      msg: "Berhasil Update kategori",
-                    });
-                  })
-                  .catch((err) => {
-                    reject({
-                      status: false,
-                      msg: "Terjadi kesalahan asa",
-                    });
+        materiModel
+          .findOne({ _id: objectId(id) })
+          .then((kategori) => {
+            if (kategori) {
+              materiModel
+                .updateOne({ _id: objectId(id) }, data)
+                .then(() => {
+                  resolve({
+                    status: true,
+                    msg: "Berhasil Update kategori",
                   });
-              } else {
-                reject({
-                  status: false,
-                  msg: "Kategori tidak ditemukan",
+                })
+                .catch((err) => {
+                  reject({
+                    status: false,
+                    msg: "Terjadi kesalahan asa",
+                  });
                 });
-              }
-            })
-            .catch((error) => {
+            } else {
               reject({
                 status: false,
-                msg: "Terjadi kesalahan",
+                msg: "Kategori tidak ditemukan",
               });
+            }
+          })
+          .catch((error) => {
+            reject({
+              status: false,
+              msg: "Terjadi kesalahan",
             });
-        }
+          });
       });
   });
 

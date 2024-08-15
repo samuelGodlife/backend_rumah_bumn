@@ -2,6 +2,7 @@ const router = require("express").Router();
 const transaksiController = require("../controller/transaksiController");
 const utilApps = require("../utils/utils_apps");
 const multer = require("multer");
+
 const uploadFile = multer({
   storage: utilApps.uploadFile,
 }).single("bukti");
@@ -69,6 +70,25 @@ router.put("/updateRetur/:idTransaksi", uploadFile2, (req, res) => {
   console.log(req.body);
   transaksiController
     .updateRetur(req.params.idTransaksi, dataUpdate)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+router.put("/cancelRetur/:idTransaksi", uploadFile2, (req, res) => {
+  let newBody = req.body.status;
+  let dataUpdate;
+
+  dataUpdate = {
+    status: req.body.status,
+  };
+  console.log("Pooo");
+  console.log(req.body);
+  transaksiController
+    .cancelRetur(req.params.idTransaksi, dataUpdate)
     .then((result) => {
       res.json(result);
     })

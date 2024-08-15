@@ -131,6 +131,26 @@ exports.updateRetur = (idTransaksi, data) =>
       });
   });
 
+exports.cancelRetur = (idTransaksi, data) =>
+  new Promise((resolve, reject) => {
+    transaksiModel
+      .updateOne({ _id: objectId(idTransaksi) }, data)
+      .then(() => {
+        console.log(data);
+        console.log(idTransaksi);
+        resolve({
+          status: true,
+          msg: "Data berhasil dirubah",
+        });
+      })
+      .catch((err) => {
+        console.log({ err });
+        reject({
+          status: false,
+          msg: "Terjadi Kesalahan pada server",
+        });
+      });
+  });
 exports.getTransaksiById = (idTransaksi) =>
   new Promise((resolve, reject) => {
     transaksiModel
